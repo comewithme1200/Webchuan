@@ -1,0 +1,91 @@
+﻿@model IEnumerable<luyentap1.Models.Entities.HangHoa>
+<div class="main">
+    <div class="content">
+        <!-- Begin New Product -->
+        <div class="content_top">
+            <div class="heading">
+                <h3>New Products</h3>
+            </div>
+            <div class="see">
+                <p><a href="index">See all Products</a></p>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="section group">
+            @foreach (var hh in Model)
+            {
+                <div class="grid_1_of_4 images_1_of_4">
+                    <a href="preview.html"><img src="~/Content/images/@hh.Anh" alt="" /></a>
+                    <h2>@hh.TenHang</h2>
+                    <div class="price-details">
+                        <div class="price-number">
+                            <p><span class="rupees">@hh.Gia</span></p>
+                        </div>
+                        <div class="add-cart">
+                            <h4><a href="preview.html">Add to Cart</a></h4>
+                        </div>
+                        <div class="clear">
+                            @Html.ActionLink("Create", "Create") |
+                            @Html.ActionLink("Edit", "Edit", new { id = hh.MaHang }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = hh.MaHang })
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+        </div>
+        <!-- End New Product -->
+
+    </div>
+
+</div>
+<div class="card-footer">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            @{
+                int position;
+                int pageCurrent = ViewBag.pageCurrent;
+                string txtSearch = ViewBag.txtSearch;
+                float numSize = ViewBag.numSize;
+                if (pageCurrent > 1)
+                {
+                    <li class="btn btn-outline-dark">
+
+                        @Ajax.ActionLink("Previous", "ActionCau3", new { txtSearch = (txtSearch != "" ? txtSearch : null), page = pageCurrent - 1 }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "KetQua", InsertionMode = InsertionMode.Replace, LoadingElementId = "divLoading" })
+
+                    </li>
+                }
+
+                for (position = 1; position <= numSize; position++)
+                {
+
+                    if (position == pageCurrent)
+                    {
+                        <li class="btn btn-outline-dark">
+                            @Ajax.ActionLink(@position + "", "ActionCau3", new { txtSearch = (txtSearch != "" ? txtSearch : null), page = position }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "KetQua", InsertionMode = InsertionMode.Replace, LoadingElementId = "divLoading" })
+                        </li>
+
+                    }
+
+                    else
+                    {
+                        <li class="btn btn-outline-dark">
+                            @Ajax.ActionLink(@position + "", "ActionCau3", new { txtSearch = (txtSearch != "" ? txtSearch : null), page = position }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "KetQua", InsertionMode = InsertionMode.Replace, LoadingElementId = "divLoading" })
+                        </li>
+
+                    }
+
+                }
+                if (pageCurrent > 0 && pageCurrent < numSize)
+                {
+                    <li class="btn btn-outline-dark">
+                        @Ajax.ActionLink("Next" + "", "ActionCau3", new { txtSearch = (txtSearch != "" ? txtSearch : null), page = pageCurrent + 1 }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "KetQua", InsertionMode = InsertionMode.Replace, LoadingElementId = "divLoading" })
+                    </li>
+                }
+
+            }
+
+        </ul>
+    </nav>
+</div>

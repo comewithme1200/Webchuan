@@ -1,0 +1,52 @@
+﻿@model IEnumerable<luyentap1.Models.Entities.HangHoa>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/NguyenVuLong_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LoaiHang.TenLoai)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenHang)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Anh)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LoaiHang.TenLoai)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenHang)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Gia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Anh)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MaHang }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MaHang }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MaHang })
+        </td>
+    </tr>
+}
+
+</table>
